@@ -200,4 +200,3 @@ jobs:
         echo "staging: $(du -sh $OPENWRT_PATH/staging_dir 2>/dev/null | cut -f 1 || echo '0B')"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      continue-on-error: true

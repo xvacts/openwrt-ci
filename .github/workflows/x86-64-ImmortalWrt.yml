@@ -104,9 +104,9 @@ jobs:
     - name: Install Feeds(安装feeds)
       run: |
         cd $OPENWRT_PATH
-        ./scripts/feeds update -a
+        ./scripts/feeds update -a -i || ./scripts/feeds update -a
         ./scripts/feeds install -a
-  
+      
     - name: Load Custom Configuration(加载自定义配置)
       run: |
         chmod +x $DIY_SCRIPT
@@ -187,14 +187,17 @@ jobs:
         bodyFile: ./release_body.txt
 
     - name: Delete Old Cache(删除旧缓存)
+      if: success() && env.GH_TOKEN != ''
+      continue-on-error: true
       run: |
         # 获取缓存列表并删除
-        gh cache list --key ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}- --json key --jq '.[] | .key' | while read -r key; do
-          gh cache delete "$key"
+        gh cache list --key ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}- --json key --jq '.[] | .key' 2>/dev/null | while read -r key; do
+          gh cache delete "$key" 2>/dev/null || true
         done
         # 输出缓存状态
         echo "========cache status========"
-        echo "ccache: $(du -sh $OPENWRT_PATH/.ccache | cut -f 1)"
-        echo "staging: $(du -sh $OPENWRT_PATH/staging_dir | cut -f 1)"
+        echo "ccache: $(du -sh $OPENWRT_PATH/.ccache 2>/dev/null | cut -f 1 || echo '0B')"
+        echo "staging: $(du -sh $OPENWRT_PATH/staging_dir 2>/dev/null | cut -f 1 || echo '0B')"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      continue-on-error: true

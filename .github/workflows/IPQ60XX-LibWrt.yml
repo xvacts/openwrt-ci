@@ -197,6 +197,8 @@ jobs:
         bodyFile: ./release_body.txt
 
     - name: Delete Old Cache(删除旧缓存)
+      if: success()
+      continue-on-error: true
       run: |
         # 获取缓存列表并删除
         gh cache list --key ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}- --json key --jq '.[] | .key' | while read -r key; do

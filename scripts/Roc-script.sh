@@ -1,5 +1,5 @@
 # 修改默认IP & 固件名称 & 编译署名
-sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.11.11/g' package/base-files/files/bin/config_generate
 sed -i "s/hostname='.*'/hostname='Roc'/g" package/base-files/files/bin/config_generate
 sed -i "s#_('Firmware Version'), (L\.isObject(boardinfo\.release) ? boardinfo\.release\.description + ' / ' : '') + (luciversion || ''),# \
             _('Firmware Version'),\n \
@@ -57,7 +57,7 @@ git_sparse_clone main https://github.com/linkease/istore luci
 git clone --depth=1 https://github.com/sirpdboy/luci-app-netspeedtest package/netspeedtest
 git clone --depth=1 https://github.com/sirpdboy/luci-app-partexp.git package/luci-app-partexp
 git clone --depth=1 https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
-新增：家长控制
+# 新增：家长控制
 git clone --depth=1 https://github.com/sirpdboy/luci-app-parentcontrol package/luci-app-parentcontrol
 # ==================== OpenAppFilter (OAF) ====================
 rm -rf feeds/packages/net/open-app-filter

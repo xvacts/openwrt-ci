@@ -37,6 +37,8 @@ rm -rf feeds/packages/net/aria2
 rm -rf feeds/packages/net/nginx
 rm -rf feeds/packages/net/frp
 rm -rf feeds/packages/lang/golang
+# 移除旧版本（如果你之前有 feeds 自带的）
+rm -rf feeds/packages/net/open-app-filter
 
 
 # Git稀疏克隆，只克隆指定目录到本地
@@ -55,6 +57,16 @@ git_sparse_clone main https://github.com/linkease/istore luci
 git clone --depth=1 https://github.com/sirpdboy/luci-app-netspeedtest package/netspeedtest
 git clone --depth=1 https://github.com/sirpdboy/luci-app-partexp.git package/luci-app-partexp
 git clone --depth=1 https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
+新增：家长控制
+git clone --depth=1 https://github.com/sirpdboy/luci-app-parentcontrol package/luci-app-parentcontrol
+# ==================== OpenAppFilter (OAF) ====================
+rm -rf feeds/packages/net/open-app-filter
+git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+
+echo "CONFIG_PACKAGE_luci-app-oaf=y" >> .config
+echo "CONFIG_PACKAGE_open-app-filter=y" >> .config
+echo "CONFIG_PACKAGE_oaf=y" >> .config
+echo "CONFIG_PACKAGE_oaf-extra=y" >> .config
 
 # Aria2 & nginx & Go & frp & Argon & Aurora & OpenList & Lucky & wechatpush & OpenAppFilter & 集客无线AC控制器 & 雅典娜LED控制
 # git_sparse_clone ariang https://github.com/laipeng668/packages net/ariang

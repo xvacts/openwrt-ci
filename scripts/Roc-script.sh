@@ -59,6 +59,7 @@ git clone --depth=1 https://github.com/sirpdboy/luci-app-partexp.git package/luc
 git clone --depth=1 https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
 # 新增：家长控制
 git clone --depth=1 https://github.com/sirpdboy/luci-app-parentcontrol package/luci-app-parentcontrol
+git clone --depth=1 https://github.com/kingyond/luci-app-accesscontrol-plus.git package/luci-app-accesscontrol-plus
 # ==================== OpenAppFilter (OAF) ====================
 rm -rf feeds/packages/net/open-app-filter
 git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
